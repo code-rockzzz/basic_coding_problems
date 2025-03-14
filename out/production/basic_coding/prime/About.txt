@@ -1,0 +1,4 @@
+Normal Prime or Not:
+=====================
+     1. If you see in normal way to find prime or not, we are running loop from 2 to n-1.
+     2. So
