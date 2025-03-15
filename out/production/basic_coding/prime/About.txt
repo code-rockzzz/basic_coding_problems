@@ -1,4 +1,80 @@
 Normal Prime or Not:
 =====================
      1. If you see in normal way to find prime or not, we are running loop from 2 to n-1.
-     2. So
+     2. So the TimeComplexity will be O(N).
+
+ Efficient Approach:
+ =====================
+    1. Handle Small Cases: Directly return false for numbers less than 2.
+    2. Skip Multiples of 2 and 3
+    3. Check Divisibility Up to √n: If a number n is not divisible by any number up to √n, then it's prime.
+        Why Do We Check Up to √n for Primality?
+        ========================================
+            -- The reason we only check up to the square root (√n) of a number n instead of n itself is based on mathematical
+               properties of factors.
+
+            1. Understanding Factors in Pairs:
+            ====================================
+                -- Every number n can be expressed as a product of two factors:
+                -- n = a × b
+
+                -- If n is not a prime, it must have factors other than 1 and itself.
+                -- These factors always appear in pairs.
+
+                Example: Consider n = 36
+                ==========================
+                    Factor pairs:
+                        (1, 36), (2, 18), (3, 12), (4, 9), (6, 6)
+                    -- Notice that one factor in each pair is always ≤ √n, while the other is ≥ √n.
+                    -- 1,2,3,4,6 ≤ √n and 6,9,12,18,36 ≤ √n
+
+            -- Thus, if no factor is found up to √n, then n has no factors at all and must be prime.
+        4. Skip Multiples of 2 and 3: After checking divisibility by 2 and 3, iterate only through numbers of the
+           form 6k ± 1 (i.e., skipping multiples of 2 and 3). where k= 1,2,3,4,5,6......
+           Why 6k ± 1?
+           ============
+               -- All prime numbers (except 2 and 3) are in the form of 6k ± 1.
+               -- This allows skipping unnecessary checks, improving efficiency.
+               Example:
+               =========
+                   -- let get the number from 1-100 which are in the form of 6k ± 1:
+                   k = 1; -> 6-1, 6+1 -> 5,7       | k = 17; -> 102-1, 102+1 -> 101,103
+                   k = 2; -> 12-1, 12+1 -> 11,13   | k = 18; -> 108-1, 108+1 -> 107,109
+                   k = 3; -> 18-1, 18+1 -> 17,19   | k = 19; -> 114-1, 114+1 -> 113,115
+                   k = 4; -> 24-1, 24+1 -> 23,25   | k = 20; -> 120-1, 120+1 -> 119,121
+                   k = 5; -> 30-1, 30+1 -> 29,31   | k = 21; -> 102-1, 102+1 -> 125,127
+                   k = 6; -> 36-1, 36+1 -> 35,37   | k = 22; -> 102-1, 102+1 -> 131,133
+                   k = 7; -> 42-1, 42+1 -> 41,43   | k = 23; -> 102-1, 102+1 -> 137,139
+                   k = 8; -> 48-1, 48+1 -> 47,49   | k = 24; -> 102-1, 102+1 -> 143,145
+                   k = 9; -> 54-1, 54+1 -> 53,55   | k = 25; -> 102-1, 102+1 -> 149,151
+                   k = 10; -> 60-1, 60+1 -> 59,61  | k = 26; -> 102-1, 102+1 -> 155,157
+                   k = 11; -> 66-1, 66+1 -> 65,67  | k = 27; -> 102-1, 102+1 -> 161,163
+                   k = 12; -> 72-1, 72+1 -> 71,73  | k = 28; -> 102-1, 102+1 -> 167,169
+                   k = 13; -> 78-1, 78+1 -> 77,79  | k = 29; -> 102-1, 102+1 -> 173,175
+                   k = 14; -> 84-1, 84+1 -> 83,85  | k = 30; -> 102-1, 102+1 -> 179,181
+                   k = 15; -> 90-1, 90+1 -> 89,91  | k = 31; -> 102-1, 102+1 -> 185,187
+                   k = 16; -> 96-1, 96+1 -> 95,97  | k = 32; -> 102-1, 102+1 -> 191,193
+                                                   | k = 33; -> 102-1, 102+1 -> 197,199
+                   ......
+
+               -- The resulted numbers will not be divisible by either 2 or 3.
+               -- In that list, we have some non-prime numbers(25,35,49,55,65,77,85,95,115,119,121,125,133,143,145,155,161,169,175,185,187).
+                  if you see these will only divisible by either (5 or 7 or 11 or 13).
+               -- Number below 121 will must and should divisible by 5 or 7. if not those numbers are prime.
+               -- if number is greater than 121, then it will be divisible by 5 or 7 or 11 or 13.
+
+               Loop:
+               ======
+                   Ex1: 85
+                   -- first check with 5 or 7, it is divisible 5. not a prime number.
+
+                   Ex2: 121
+                   -- first check with 5 or 7, 121 will not divisible by 5 or 7, increase i value to 5+6 = 11
+                   -- second check with 11 or 13, so it will be divisible by 11. not a prime
+
+                   Ex3: 199
+                   -- first check with 5 or 7, 199 will not divisible by 5 or 7, increase i value to 5+6 = 11
+                   -- second check with 11 or 13, so it will not divisible by 11 or 13. it's a prime
+
+
+
